@@ -1,8 +1,4 @@
-Here is a clean and PyCharm-ready `README.md` file. **Copy the entire content below** and paste it into a new file in PyCharm named `README.md`.
 
----
-
-````markdown
 # 📺 YouTube Data Fetcher & Search API (Flask)
 
 A Flask-based web app that fetches the latest video data from the YouTube Data API, stores it in MongoDB, and provides search and query APIs.
