@@ -6,16 +6,16 @@ from bson.objectid import ObjectId  # Import ObjectId
 from os import environ
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
-
 import time
 import asyncio
+
+load_dotenv(find_dotenv())   #sensitive details store karte hain.
 
 YOUTUBE_API_URL = environ.get('YOUTUBE_API_URL')
 
 GOOGLE_API_KEY = environ.get('GOOGLE_API_KEY')
 
-db = configDB() #y_search data value
+db = configDB() #y_search data value --(call)
 
 
 # controler for quering database and getting paginated responce
@@ -31,7 +31,7 @@ def query(page):
         new_data = data.copy()
         # Convert ObjectId to string for JSON serialization
         if '_id' in new_data and isinstance(new_data['_id'], ObjectId):
-            new_data['_id'] = str(new_data['_id'])
+            new_data['_id'] = str(new_data['_id']) # objectID convert it into str bcz ObjectIds directly JSON mein nahi bhej sakte
         Data.append(new_data)
     return jsonify(Data)
 
@@ -45,7 +45,7 @@ def search(tag):
     data_cursor = db.find({"$text": {"$search": tag}})
 
     Data = []
-    for data in data_cursor:
+    for data in data_cursor:   # MongoDB query se mile har document par loop chalta hai
         # Create a mutable copy of the document
         new_data = data.copy()
         # Convert ObjectId to string for JSON serialization
@@ -66,7 +66,7 @@ async def video_data():
             "key": GOOGLE_API_KEY,
             "publishedAfter": "2020-01-01T00:00:00Z",
             "order": "date",
-            "q": "python"
+            "q": "cricket"
         }
 
         response = requests.get(YOUTUBE_API_URL, params=params)
@@ -112,3 +112,5 @@ async def start():
     # Use loop.create_task to run video_data as a background task
     loop.create_task(video_data())
     loop.run_forever()  # Keep the event loop running
+
+

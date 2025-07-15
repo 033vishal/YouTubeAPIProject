@@ -15,4 +15,7 @@ def configDB():
     database = client.get_database('YoutubeData') # get key "YoutubeData" from mongoDb database , you can change it into another db also
     db = database.ysearch # collection of youtubedata db similarly we can have other collection in same db
     print('Connected to Database!!')
-    return db  
+    return db
+
+
+
